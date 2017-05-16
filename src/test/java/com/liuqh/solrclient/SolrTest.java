@@ -17,10 +17,11 @@ public class SolrTest {
 	@Test
 	public void testAdd() throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("id", "4");
+		map.put("id", "5");
 		map.put("name", "lijie");
+		map.put("features", "小眼睛，长头发");
 		map.put("age", "24");
-		//map.put("addr", "深圳");
+		map.put("addr", "深圳");
 		SolrMain.addDocument(map, "core1");
 	}
 	

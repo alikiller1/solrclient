@@ -22,7 +22,7 @@ public class SolrMain {
     /**
      * solr http服务地址
      */
-    public static String SOLR_URL="http://localhost:8081/solr";
+    public static String SOLR_URL="http://localhost:8483/solr";
 
     /**
      * solr的core
