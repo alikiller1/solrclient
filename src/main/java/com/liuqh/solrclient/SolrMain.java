@@ -141,17 +141,18 @@ public class SolrMain {
         SolrQuery sq = new SolrQuery();
 
         // q查询
-        sq.set("q", "id:1");
+        sq.set("q", "*:*");
 
         // filter查询
-        sq.addFilterQuery("id:[0 TO 1]");
+        //sq.addFilterQuery("name:[jely jim]");
+        sq.addFilterQuery("age:{25 to 30}");
 
         // 排序
-        sq.setSort("id", SolrQuery.ORDER.asc);
+        sq.setSort("id", SolrQuery.ORDER.desc);
 
         // 分页 从第0条开始取，取一条
         sq.setStart(0);
-        sq.setRows(1);
+        sq.setRows(10);
 
         // 设置高亮
         sq.setHighlight(true);
