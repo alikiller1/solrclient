@@ -240,7 +240,7 @@ public class SolrMain {
     }
     
     public static void fullDataImport(){
-    	String url="http://localhost:8483/solr/core2/dataimport?command=full-import";
+    	String url="http://localhost:8483/solr/core2/dataimport?command=full-import&clean=true&entity=student2&commit=true";
     	String s= HttpRequest.sendGet(url, null);
     	System.out.println(s);
     }
