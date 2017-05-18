@@ -17,12 +17,13 @@ public class SolrTest {
 	@Test
 	public void testAdd() throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("id", "1");
-		map.put("name", "liujie");
-		map.put("features", "小眼睛，长头发");
+		map.put("sid", "1");
+		map.put("course", "数学");
+		map.put("score", "75");
+		map.put("name", "liuqh2");
 		map.put("age", "24");
 		map.put("addr", "深圳，福田");
-		SolrMain.addDocument(map, "core1");
+		SolrMain.addDocument(map);
 	}
 	
 	@Test
@@ -46,8 +47,13 @@ public class SolrTest {
 		list.add(p1);
 		list.add(p2);
 		list.add(p3);
-		SolrMain.addDocumentByBean(list, "core1");
+		SolrMain.addDocumentByBean(list);
 		
+	}
+	
+	@Test
+	public void testGetSpell() throws Exception{
+		SolrMain.getSpell("liuqs");
 	}
 	
 	@Test
@@ -57,6 +63,6 @@ public class SolrTest {
 		ids.add("2");
 		ids.add("3");
 		ids.add("4");
-		SolrMain.deleteDocumentByIds(ids, "core1");
+		SolrMain.deleteDocumentByIds(ids);
 	}
 }

@@ -57,20 +57,20 @@ public class SolrMain {
         map.put("name", "lijie");
         map.put("age", "24");
         map.put("addr", "深圳");
-        addDocument(map, SOLR_CORE);
+        addDocument(map);
        
         // 2.通过bean添加document
         List<Person> persons = new ArrayList<Person>();
         persons.add(new Person("00002", "lisi", 25, "重庆"));
         persons.add(new Person("00003", "wangwu", 26, "上海"));
-        addDocumentByBean(persons, SOLR_CORE);
+        addDocumentByBean(persons);
 
         // 3.根据id集合删除索引
         List<String> ids = new ArrayList<String>();
         ids.add("00001");
         ids.add("00002");
         ids.add("00003");
-        deleteDocumentByIds(ids, SOLR_CORE);
+        deleteDocumentByIds(ids);
         // 4.查询
         getDocument(SOLR_CORE);
 
@@ -86,7 +86,7 @@ public class SolrMain {
      * @return
      */
     public static HttpSolrClient getSolrClient(String core) {
-        HttpSolrClient hsc = new HttpSolrClient(SOLR_URL + core);
+        HttpSolrClient hsc=new HttpSolrClient.Builder(SOLR_URL + core).build();
         return hsc;
     }
 
@@ -97,13 +97,13 @@ public class SolrMain {
      * @param core
      * @throws Exception
      */
-    public static void addDocument(Map<String, String> map, String core)
+    public static void addDocument(Map<String, String> map)
             throws Exception {
         SolrInputDocument sid = new SolrInputDocument();
         for (Entry<String, String> entry : map.entrySet()) {
             sid.addField(entry.getKey(), entry.getValue());
         }
-        HttpSolrClient solrClient = getSolrClient("/" + core);
+        HttpSolrClient solrClient = getSolrClient("/" + SOLR_CORE);
         solrClient.add(sid);
         commitAndCloseSolr(solrClient);
     }
@@ -115,9 +115,9 @@ public class SolrMain {
      * @param core
      * @throws Exception
      */
-    public static void addDocumentByBean(List<Person> persons, String core)
+    public static void addDocumentByBean(List<Person> persons)
             throws Exception {
-        HttpSolrClient solrClient = getSolrClient("/" + core);
+        HttpSolrClient solrClient = getSolrClient("/" + SOLR_CORE);
         solrClient.addBeans(persons);
         commitAndCloseSolr(solrClient);
     }
@@ -129,9 +129,9 @@ public class SolrMain {
      * @param core
      * @throws Exception
      */
-    public static void deleteDocumentByIds(List<String> ids, String core)
+    public static void deleteDocumentByIds(List<String> ids)
             throws Exception {
-        HttpSolrClient solrClient = getSolrClient("/" + core);
+        HttpSolrClient solrClient = getSolrClient("/" + SOLR_CORE);
         solrClient.deleteById(ids);
         commitAndCloseSolr(solrClient);
     }
@@ -145,10 +145,10 @@ public class SolrMain {
 
         // filter查询
         //sq.addFilterQuery("name:[jely jim]");
-        sq.addFilterQuery("age:{25 to 30}");
+        //sq.addFilterQuery("age:{25 to 30}");
 
         // 排序
-        sq.setSort("id", SolrQuery.ORDER.desc);
+        sq.setSort("sid", SolrQuery.ORDER.desc);
 
         // 分页 从第0条开始取，取一条
         sq.setStart(0);
@@ -174,7 +174,7 @@ public class SolrMain {
         // 获取查询的条数
         System.out.println("一共查询到" + results.getNumFound() + "条记录");
         for (SolrDocument solrDocument : results) {
-            System.out.println("id:" + solrDocument.get("id"));
+            System.out.println("id:" + solrDocument.get("sid"));
             System.out.println("name:" + solrDocument.get("name"));
             System.out.println("age:" + solrDocument.get("age"));
             System.out.println("addr:" + solrDocument.get("addr"));
@@ -196,13 +196,13 @@ public class SolrMain {
      * @param core
      * @throws Exception
      */
-    public static void getSpell(String core) throws Exception {
-        HttpSolrClient solrClient = getSolrClient("/" + core);
+    public static void getSpell(String keyWork) throws Exception {
+        HttpSolrClient solrClient = getSolrClient("/" + SOLR_CORE);
         SolrQuery sq = new SolrQuery();
         sq.set("qt", "/spell");
 
         // 原本是lisi，这里拼写错误，测试solr返回建议词语
-        sq.set("q", "liss");
+        sq.set("q", keyWork);
         QueryResponse query = solrClient.query(sq);
         SolrDocumentList results = query.getResults();
 
