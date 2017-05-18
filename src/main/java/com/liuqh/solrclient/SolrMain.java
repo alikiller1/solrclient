@@ -51,26 +51,6 @@ public class SolrMain {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        // 1.测试插入文档
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("id", "00001");
-        map.put("name", "lijie");
-        map.put("age", "24");
-        map.put("addr", "深圳");
-        addDocument(map);
-
-        // 3.根据id集合删除索引
-        List<String> ids = new ArrayList<String>();
-        ids.add("00001");
-        ids.add("00002");
-        ids.add("00003");
-        deleteDocumentByIds(ids);
-        // 4.查询
-        getDocument();
-
-        // 5.spell测试
-        getSpell(SOLR_CORE);
-        
 
     }
 
