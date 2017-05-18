@@ -44,15 +44,7 @@ public class SolrMain {
     */
     	}
 
-    /**
-     * 主函数入口
-     * 
-     * @param args
-     * @throws Exception
-     */
-    public static void main(String[] args) throws Exception {
-
-    }
+    
 
     /**
      * 获取solr服务
@@ -245,6 +237,28 @@ public class SolrMain {
             throws Exception {
         solrClient.commit();
         solrClient.close();
+    }
+    
+    public static void fullDataImport(){
+    	String url="http://localhost:8483/solr/core2/dataimport?command=full-import";
+    	String s= HttpRequest.sendGet(url, null);
+    	System.out.println(s);
+    }
+    
+    public static void deltaDataImport(){
+    	String url="http://localhost:8483/solr/core2/dataimport?command=delta-import";
+    	String s= HttpRequest.sendGet(url, null);
+    	System.out.println(s);
+    }
+    
+    /**
+     * 主函数入口
+     * 
+     * @param args
+     * @throws Exception
+     */
+    public static void main(String[] args) throws Exception {
+    	fullDataImport();
     }
 
 }
