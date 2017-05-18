@@ -14,6 +14,7 @@ public class Person {
     private String name;
     private int age;
     private String addr;
+    private String feature;
 
     public String getId() {
         return id;
@@ -51,23 +52,34 @@ public class Person {
         this.addr = addr;
     }
 
-    public Person(String id, String name, int age, String addr) {
+    public Person(String id, String name, int age, String addr,String feature) {
         super();
         this.id = id;
         this.name = name;
         this.age = age;
         this.addr = addr;
+        this.feature=feature;
     }
 
-    public Person() {
+    
+  
+	public String getFeature() {
+		return feature;
+	}
+	
+	 @Field
+	public void setFeature(String feature) {
+		this.feature = feature;
+	}
+
+	public Person() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    @Override
-    public String toString() {
-        return "Person [id=" + id + ", name=" + name + ", age=" + age
-                + ", addr=" + addr + "]";
-    }
+	@Override
+	public String toString() {
+		return "Person [id=" + id + ", name=" + name + ", age=" + age + ", addr=" + addr + ", desc=" +  feature + "]";
+	}
 
 }

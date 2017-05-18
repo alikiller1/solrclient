@@ -11,7 +11,7 @@ public class SolrTest {
 
 	@Test
 	public void testQuery() throws Exception {
-		SolrMain.getDocument("core1");
+		SolrMain.getDocument();
 	}
 
 	@Test

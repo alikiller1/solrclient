@@ -27,7 +27,7 @@ public class SolrMain {
     /**
      * solr的core
      */
-    public static String SOLR_CORE="core1";
+    public static String SOLR_CORE="core2";
 
     static {/*
         Properties properties = new Properties();
@@ -58,12 +58,6 @@ public class SolrMain {
         map.put("age", "24");
         map.put("addr", "深圳");
         addDocument(map);
-       
-        // 2.通过bean添加document
-        List<Person> persons = new ArrayList<Person>();
-        persons.add(new Person("00002", "lisi", 25, "重庆"));
-        persons.add(new Person("00003", "wangwu", 26, "上海"));
-        addDocumentByBean(persons);
 
         // 3.根据id集合删除索引
         List<String> ids = new ArrayList<String>();
@@ -72,7 +66,7 @@ public class SolrMain {
         ids.add("00003");
         deleteDocumentByIds(ids);
         // 4.查询
-        getDocument(SOLR_CORE);
+        getDocument();
 
         // 5.spell测试
         getSpell(SOLR_CORE);
@@ -136,27 +130,40 @@ public class SolrMain {
         commitAndCloseSolr(solrClient);
     }
 
-    public static void getDocument(String core) throws Exception {
-        HttpSolrClient solrClient = getSolrClient("/" + core);
+    public static void getDocument() throws Exception {
+        HttpSolrClient solrClient = getSolrClient("/" + SOLR_CORE);
         SolrQuery sq = new SolrQuery();
 
         // q查询
-        sq.set("q", "*:*");
+        //sq.set("q", "addr:深圳 feature:矮");
+        sq.set("q", "深圳 矮");
+        
+        //sq.set("q", "*:*");
+        
+        //设置Query parser，要权重排序，那么需要用到Dismax
+        sq.set("defType","dismax");
+        //默认的查询字段，一般默认指定。
+        sq.set("df", "searchText");
+        //设置参数的属性，区分大小写
+        sq.setParam("q.op", "AND");
+        //设置查询字段的权重
+        //sq.set("qf","addr^1 feature^0.1");
 
         // filter查询
         //sq.addFilterQuery("name:[jely jim]");
-        //sq.addFilterQuery("age:{25 to 30}");
+       // sq.addFilterQuery("age:[10 TO 20]");
 
         // 排序
-        sq.setSort("sid", SolrQuery.ORDER.desc);
+        //sq.setSort("id", SolrQuery.ORDER.desc);
 
         // 分页 从第0条开始取，取一条
         sq.setStart(0);
         sq.setRows(10);
+        
 
         // 设置高亮
         sq.setHighlight(true);
-
+        
         // 设置高亮的字段
         sq.addHighlightField("name");
 
@@ -173,12 +180,16 @@ public class SolrMain {
         SolrDocumentList results = result.getResults();
         // 获取查询的条数
         System.out.println("一共查询到" + results.getNumFound() + "条记录");
+        String id="";
         for (SolrDocument solrDocument : results) {
-            System.out.println("id:" + solrDocument.get("sid"));
+        	id=id+solrDocument.get("id");
+            System.out.println("id:" + solrDocument.get("id"));
             System.out.println("name:" + solrDocument.get("name"));
             System.out.println("age:" + solrDocument.get("age"));
             System.out.println("addr:" + solrDocument.get("addr"));
+            System.out.println("searchText:" + solrDocument.get("searchText"));
         }
+        System.out.println("排序->"+id);
 
         // 2.获取对象信息,需要传入对应对象的类class
         System.out.println("2.获取对象信息,需要传入对应对象的类class-----------");
