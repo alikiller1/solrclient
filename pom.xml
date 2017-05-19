@@ -33,6 +33,15 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.42</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.nlpcn/nlp-lang -->
+		<dependency>
+			<groupId>org.nlpcn</groupId>
+			<artifactId>nlp-lang</artifactId>
+			<version>1.7.2</version>
+		</dependency>
+		
+		
+
 	</dependencies>
 
 	<build>
