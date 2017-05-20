@@ -22,6 +22,7 @@ public class QueryService {
 	}
 
 	public static void queryByOneSolrjClient(String queryWord, int queryTimes) throws SolrServerException, IOException {
+		int count=0;
 		String serverUrl = "http://localhost:8483/solr/core2";
 		HttpSolrClient solrClient = new HttpSolrClient.Builder(serverUrl).build();
 		SolrQuery sq = new SolrQuery();
@@ -30,10 +31,12 @@ public class QueryService {
 		sq.setStart(0);
 		sq.setRows(10);
 		for (int i = 0; i < queryTimes; i++) {
+			count++;
 			QueryResponse result = solrClient.query(sq);
 			 SolrDocumentList results = result.getResults();
 			//System.out.println(results.getNumFound());
 		}
+		System.out.println("count="+count);
 		solrClient.commit();
 		solrClient.close();
 
