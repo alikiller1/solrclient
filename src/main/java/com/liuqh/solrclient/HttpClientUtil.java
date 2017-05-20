@@ -93,7 +93,7 @@ public class HttpClientUtil {
         if (httpClient == null) {
             synchronized (syncLock) {
                 if (httpClient == null) {
-                    httpClient = createHttpClient(200, 2, 2, hostname, port);
+                    httpClient = createHttpClient(200, 20, 200, hostname, port);
                 }
             }
         }
@@ -206,7 +206,7 @@ public class HttpClientUtil {
             EntityUtils.consume(entity);
             return result;
         } catch (Exception e) {
-//          e.printStackTrace();
+          e.printStackTrace();
             throw e;
         } finally {
             try {
