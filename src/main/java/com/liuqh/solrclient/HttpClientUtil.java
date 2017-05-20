@@ -253,7 +253,7 @@ public class HttpClientUtil {
 
     public static void main(String[] args) {
         // URL列表数组
-        String[] urisToGet = {"http://www.paicaifu.com/"};
+        String[] urisToGet = {"https://mapi.paicaifu.com/"};
 
         long start = System.currentTimeMillis();
         try {
