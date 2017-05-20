@@ -231,7 +231,8 @@ public class HttpClientUtil {
         config(httpget);
         CloseableHttpResponse response = null;
         try {
-            response = getHttpClient(url).execute(httpget,
+        	CloseableHttpClient httpClient= getHttpClient(url);
+            response = httpClient.execute(httpget,
                     HttpClientContext.create());
             HttpEntity entity = response.getEntity();
             String result = EntityUtils.toString(entity, "utf-8");
@@ -260,12 +261,11 @@ public class HttpClientUtil {
             ExecutorService executors = Executors.newFixedThreadPool(pagecount);
             CountDownLatch countDownLatch = new CountDownLatch(pagecount);
             for (int i = 0; i < pagecount; i++) {
-                HttpGet httpget = new HttpGet(urisToGet[i]);
-                config(httpget);
                 // 启动线程抓取
                 executors
                         .execute(new GetRunnable(urisToGet[i], countDownLatch));
             }
+            System.out.println("count----->"+countDownLatch.getCount());
             countDownLatch.await();
             executors.shutdown();
         } catch (InterruptedException e) {

@@ -11,7 +11,7 @@ public class SearchServiceTest {
 	
 	@Test
 	public void test1() throws SolrServerException, IOException{
-		int times=3;
+		int times=2000;
 		String queryWord="高 矮 深圳 福";
 		
 		/*--------------------------*/
