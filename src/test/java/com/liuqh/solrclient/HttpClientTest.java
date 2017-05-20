@@ -19,8 +19,9 @@ public class HttpClientTest {
 					httpConn.setRequestMethod("POST");
 					httpConn.setDoOutput(true);
 					httpConn.setDoInput(true);
+					httpConn.setRequestProperty("Connection", "Keep-Alive");// 维持长连接
 					PrintWriter out = new PrintWriter(httpConn.getOutputStream());
-					out.write("df=searchText&indent=ture&wt=json&q="+URLEncoder.encode("深圳", "UTF-8"));
+					out.write("df=searchText&indent=ture&wt=json&q="+URLEncoder.encode("胖", "UTF-8"));
 					out.flush();
 					
 					
@@ -30,20 +31,8 @@ public class HttpClientTest {
 						result += line+"\r\n";
 					}
 					System.out.println(result);
-					
-					
-					httpConn.connect();
-					out.write("df=searchText&indent=ture&wt=json&q="+URLEncoder.encode("深圳", "UTF-8"));
-					out.flush();
-				    in = new BufferedReader(new InputStreamReader(httpConn.getInputStream()));
-				    line="";
-					while ((line = in.readLine()) != null) {
-						result += line+"\r\n";
-					}
-					System.out.println(result);
 					in.close();
 					out.close();
-					
 					
 				} catch (Exception e) {
 					System.out.println("没有结果！" + e);
