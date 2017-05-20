@@ -60,15 +60,13 @@ public class HttpClientUtil {
     private final static Object syncLock = new Object();
 
     private static void config(HttpRequestBase httpRequestBase) {
-        // 设置Header等
-        // httpRequestBase.setHeader("User-Agent", "Mozilla/5.0");
-        // httpRequestBase
-        // .setHeader("Accept",
-        // "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-        // httpRequestBase.setHeader("Accept-Language",
-        // "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");// "en-US,en;q=0.5");
-        // httpRequestBase.setHeader("Accept-Charset",
-        // "ISO-8859-1,utf-8,gbk,gb2312;q=0.7,*;q=0.7");
+         httpRequestBase.setHeader("User-Agent", "Mozilla/5.0");
+         httpRequestBase.setHeader("Accept",
+         "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+         httpRequestBase.setHeader("Accept-Language",
+         "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+         httpRequestBase.setHeader("Accept-Charset",
+         "ISO-8859-1,utf-8,gbk,gb2312;q=0.7,*;q=0.7");
 
         // 配置请求的超时设置
         RequestConfig requestConfig = RequestConfig.custom()
@@ -95,7 +93,7 @@ public class HttpClientUtil {
         if (httpClient == null) {
             synchronized (syncLock) {
                 if (httpClient == null) {
-                    httpClient = createHttpClient(200, 40, 100, hostname, port);
+                    httpClient = createHttpClient(200, 2, 2, hostname, port);
                 }
             }
         }
@@ -254,36 +252,7 @@ public class HttpClientUtil {
 
     public static void main(String[] args) {
         // URL列表数组
-        String[] urisToGet = {
-                "http://blog.csdn.net/catoop/article/details/38849497",
-                "http://blog.csdn.net/catoop/article/details/38849497",
-                "http://blog.csdn.net/catoop/article/details/38849497",
-                "http://blog.csdn.net/catoop/article/details/38849497",
-
-                "http://blog.csdn.net/catoop/article/details/38849497",
-                "http://blog.csdn.net/catoop/article/details/38849497",
-                "http://blog.csdn.net/catoop/article/details/38849497",
-                "http://blog.csdn.net/catoop/article/details/38849497",
-
-                "http://blog.csdn.net/catoop/article/details/38849497",
-                "http://blog.csdn.net/catoop/article/details/38849497",
-                "http://blog.csdn.net/catoop/article/details/38849497",
-                "http://blog.csdn.net/catoop/article/details/38849497",
-
-                "http://blog.csdn.net/catoop/article/details/38849497",
-                "http://blog.csdn.net/catoop/article/details/38849497",
-                "http://blog.csdn.net/catoop/article/details/38849497",
-                "http://blog.csdn.net/catoop/article/details/38849497",
-
-                "http://blog.csdn.net/catoop/article/details/38849497",
-                "http://blog.csdn.net/catoop/article/details/38849497",
-                "http://blog.csdn.net/catoop/article/details/38849497",
-                "http://blog.csdn.net/catoop/article/details/38849497",
-
-                "http://blog.csdn.net/catoop/article/details/38849497",
-                "http://blog.csdn.net/catoop/article/details/38849497",
-                "http://blog.csdn.net/catoop/article/details/38849497",
-                "http://blog.csdn.net/catoop/article/details/38849497" };
+        String[] urisToGet = {"http://www.paicaifu.com/"};
 
         long start = System.currentTimeMillis();
         try {
