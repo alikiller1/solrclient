@@ -113,13 +113,15 @@ public class SolrMain {
         //sq.set("q", "*:*");
         
         //设置Query parser，要权重排序，那么需要用到Dismax
-        sq.set("defType","dismax");
+       // sq.set("defType","dismax");
+        sq.set("defType","edismax");
+        
         //默认的查询字段，一般默认指定。
         sq.set("df", "searchText");
         //设置参数的属性，区分大小写
-        sq.setParam("q.op", "AND");
+        //sq.setParam("q.op", "AND");
         //设置查询字段的权重
-        //sq.set("qf","addr^1 feature^0.1");
+        sq.set("qf","addr^1 feature^0.1");
 
         // filter查询
         //sq.addFilterQuery("name:[jely jim]");
