@@ -1,7 +1,14 @@
 package com.liuqh.solrclient;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.solr.common.StringUtils;
 
 public class JsonFormatUtil {
 	 /**
@@ -16,6 +23,16 @@ public class JsonFormatUtil {
         int count = 0;
         while(index < content.length()){
             char ch = content.charAt(index);
+            char befor=' ';
+            if(index>0){
+            	befor= content.charAt(index-1);
+            }
+            char after=' ';
+            if(index<content.length()-1){
+            	 after=content.charAt(index+1);
+            }
+          
+            
             if(ch == '{' || ch == '['){
                 sb.append(ch);
                 sb.append('\n');
@@ -32,7 +49,8 @@ public class JsonFormatUtil {
                 }
                 sb.append(ch);
             } 
-            else if(ch == ','){
+            
+            else if(ch == ','&&(after=='{'||after=='['||befor=='}'||befor==']'||after=='"')){
                 sb.append(ch);
                 sb.append('\n');
                 for (int i = 0; i < count; i++) {                   
@@ -57,9 +75,16 @@ public class JsonFormatUtil {
         Matcher m = p.matcher(content);
         return m.replaceAll("").trim();
     }
-    public static void main(String[] args) {
-    	String s="[items:[{name:\"liuqh\"},{name:\"abc123\"}],age:100]";
-    	System.out.println(formatJson(s));
+    public static void main(String[] args) throws IOException {
+    	File f=new File("json.txt");
+    	BufferedReader br=new BufferedReader(new FileReader(f));
+    	String s=br.readLine();
+    	String result="";
+    	if(!StringUtils.isEmpty(s)){
+    		result=formatJson(s);
+    	}
+    	//String s="[items:[{name:\"liuqh\"},{name:\"abc123,ddd\"}],age:100]";
+    	System.out.println(result);
 	}
 
 }
