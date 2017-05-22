@@ -48,6 +48,7 @@ public class JsonFormatUtil {
                     sb.append('\t');
                 }
                 sb.append(ch);
+                
             } 
             
             else if(ch == ','&&(after=='{'||after=='['||befor=='}'||befor==']'||after=='"')){
@@ -83,7 +84,7 @@ public class JsonFormatUtil {
     	if(!StringUtils.isEmpty(s)){
     		result=formatJson(s);
     	}
-    	//String s="[items:[{name:\"liuqh\"},{name:\"abc123,ddd\"}],age:100]";
+    	br.close();
     	System.out.println(result);
 	}
 
