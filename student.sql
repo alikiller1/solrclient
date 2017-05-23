@@ -20,21 +20,21 @@ insert  into `score`(`sid`,`course`,`score`) values (1,'数学',72),(1,'语文',
 
 DROP TABLE IF EXISTS `student`;
 
-CREATE TABLE `student` (
-  `id` int(11) NOT NULL,
-  `name` varchar(20) DEFAULT NULL,
-  `age` int(11) DEFAULT NULL,
-  `addr` varchar(40) DEFAULT NULL,
-  `feature` varchar(40) DEFAULT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `student` */
-
-insert  into `student`(`id`,`name`,`age`,`addr`,`feature`,`timestamp`) values (1,'lisi',11,'深圳,深圳，福田','矮,瘦','2017-05-19 08:52:50'),(2,'liuqs',11,'上海,浦东','高,胖','2017-05-19 08:52:50'),(3,'liubm',11,'深圳，深圳，深圳，','矮,瘦','2017-05-19 08:52:50'),(4,'tom',11,'深圳，深圳，深圳，深圳','矮,瘦','2017-05-19 08:52:50'),(5,'KKK',12,'深圳','矮，瘦','2017-05-19 08:52:50'),(6,'liubk',11,'上海，黄浦','高，瘦','2017-05-19 08:52:50'),(7,'liubk',11,'深圳，罗湖','矮，胖','2017-05-19 08:52:50'),(8,'liuqs',11,'深圳','矮','2017-05-19 08:52:50'),(9,'liuqsd',11,'深圳，罗湖','矮，矮，胖','2017-05-19 08:52:50');
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+create table `student` (
+	`id` int (11),
+	`name` varchar (60),
+	`age` int (11),
+	`addr` varchar (120),
+	`feature` varchar (120),
+	`timestamp` timestamp ,
+	`content` varchar (1200)
+); 
+insert into `student` (`id`, `name`, `age`, `addr`, `feature`, `timestamp`, `content`) values('1','lisi','11','深圳,深圳，福田','矮,瘦','2017-05-23 17:02:56','若按照机构名称查询');
+insert into `student` (`id`, `name`, `age`, `addr`, `feature`, `timestamp`, `content`) values('2','liuqs','11','上海,浦东','高,胖','2017-05-23 17:03:18','请输入机构的全称');
+insert into `student` (`id`, `name`, `age`, `addr`, `feature`, `timestamp`, `content`) values('3','liubm','11','深圳，深圳，深圳，','矮,瘦','2017-05-23 17:03:25','公司代码怎么查询');
+insert into `student` (`id`, `name`, `age`, `addr`, `feature`, `timestamp`, `content`) values('4','cll','11','深圳，深圳，深圳，深圳','矮,瘦','2017-05-23 17:03:27','组织机构代码是什么');
+insert into `student` (`id`, `name`, `age`, `addr`, `feature`, `timestamp`, `content`) values('5','abcliuqh','12','深圳','矮，瘦','2017-05-23 17:03:38','组织机构代码是什么 how are you');
+insert into `student` (`id`, `name`, `age`, `addr`, `feature`, `timestamp`, `content`) values('6','liubk','11','上海，黄浦,世纪大道','高，瘦','2017-05-23 17:03:53','where you from');
+insert into `student` (`id`, `name`, `age`, `addr`, `feature`, `timestamp`, `content`) values('7','aliuqh','11','上海，浦东，唐镇','矮，胖','2017-05-23 17:04:26','yes,you are right');
+insert into `student` (`id`, `name`, `age`, `addr`, `feature`, `timestamp`, `content`) values('8','aaliuqs','11','湖南省衡阳市唐镇世纪大道','矮','2017-05-23 17:04:44','事实上，对短语进行精确匹配的查询语句 “chief  development  officer” 很容易改写成  “chief ');
+insert into `student` (`id`, `name`, `age`, `addr`, `feature`, `timestamp`, `content`) values('9','liuqccc','11','深圳，罗湖','矮，矮，胖','2017-05-23 17:05:01','查询语句： “chief officer”~1 ');
