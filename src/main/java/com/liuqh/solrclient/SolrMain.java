@@ -113,8 +113,10 @@ public class SolrMain {
         //sq.set("q", "*:*");
         
         //设置Query parser，要权重排序，那么需要用到Dismax
-       // sq.set("defType","dismax");
-        sq.set("defType","edismax");
+        sq.set("defType","dismax");
+       // sq.set("defType","complexphrase");
+        //sq.set("defType","offsetphrase");
+       // sq.set("defType","edismax");
         
         //默认的查询字段，一般默认指定。
         sq.set("df", "searchText");
