@@ -114,9 +114,10 @@ public class GeneralTest {
         final CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<String>(a);  
      Thread t=   new Thread(){
         	public void run() {
-        		/*for(int i=0;i<list.size();i++){
+        		for(int i=0;i<list.size();i++){
         			if(i==0){
         				try {
+        					//会输出kkk
 							Thread.sleep(2000);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
@@ -124,9 +125,11 @@ public class GeneralTest {
 						}
         			}
         			System.out.println("--->"+list.get(i));
-        		}*/
+        		}
+        		/*
         		Iterator<String> it=list.iterator();
         		while(it.hasNext()){
+        		//这样子是不会输出kkk的
         			String s=it.next();
         			System.out.println("--->"+s);
         			
@@ -136,8 +139,9 @@ public class GeneralTest {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-        		}
+        		}*/
         	};
+        	
         };
 		t.setDaemon(true);
         t.start();
