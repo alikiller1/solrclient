@@ -1,6 +1,7 @@
 package com.liuqh.solrclient;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -53,6 +54,7 @@ public class GeneralTest {
         t.setDaemon(true);  
         t.start();  
         Thread.currentThread().sleep(3);  
+        
         for (String s : list) {  
             System.out.println(s+"-->"+list.hashCode());  
         }  
@@ -101,7 +103,61 @@ public class GeneralTest {
 		          it.remove();
 		     }
 		}
+	}
+	@Test
+	public void test4() throws InterruptedException{
+
+		List<String> a = new ArrayList<String>();  
+        a.add("a");  
+        a.add("b");  
+        a.add("c");  
+        final CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<String>(a);  
+     Thread t=   new Thread(){
+        	public void run() {
+        		/*for(int i=0;i<list.size();i++){
+        			if(i==0){
+        				try {
+							Thread.sleep(2000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+        			}
+        			System.out.println("--->"+list.get(i));
+        		}*/
+        		Iterator<String> it=list.iterator();
+        		while(it.hasNext()){
+        			String s=it.next();
+        			System.out.println("--->"+s);
+        			
+        			try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+        		}
+        	};
+        };
+		t.setDaemon(true);
+        t.start();
+        
+        Thread.sleep(1);
+        list.add("kkk");
+        for(int i=0;i<list.size();i++){
+			System.out.println("+++++>"+list.get(i));
+		}
 		
-	
+       Thread.sleep(6000);
+	}
+	@Test
+	public void test5(){
+		String[] s=new String[]{"1","2","3"};
+		String[] s1=new String[]{"2","3","4"};		
+		String[] s3=s;
+		System.out.println(Arrays.toString(s3));
+		s=s1;
+		System.out.println(Arrays.toString(s1));
+		System.out.println(Arrays.toString(s3));
 	}
 }
