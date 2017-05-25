@@ -27,6 +27,12 @@
 			<artifactId>solr-solrj</artifactId>
 			<version>6.3.0</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.solr/solr-core -->
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-core</artifactId>
+			<version>6.3.0</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 			<groupId>mysql</groupId>
