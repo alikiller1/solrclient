@@ -14,7 +14,8 @@ public class MySimilarity extends SimilarityBase {
 
 	@Override
 	protected float score(BasicStats stats, float freq, float docLen) {
-		return 0;
+		//float avgFieldLength=stats.getAvgFieldLength();
+		return 0f;
 	}
 	
 	
