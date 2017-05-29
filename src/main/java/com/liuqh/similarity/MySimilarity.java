@@ -41,9 +41,10 @@ public class MySimilarity extends SimilarityBase {
 		System.out.println("getTotalTermFreq-->"+totalTermFreq);
 		System.out.println("freq-->"+freq);
 		System.out.println("docLen-->"+docLen);
-		//freq/g
-		//freq/docLen
-		return 0f;
+		freq=1;
+		float a=freq/docLen;
+		return a;
+		
 	}
 	
 	public static void main(String[] args) {
