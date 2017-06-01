@@ -108,22 +108,22 @@ public class SolrMain {
 
         // q查询
         //sq.set("q", "addr:深圳 feature:矮");
-        sq.set("q", "深圳 矮");
+        sq.set("q", "南贷金融");
         
         //sq.set("q", "*:*");
         
         //设置Query parser，要权重排序，那么需要用到Dismax
-        sq.set("defType","dismax");
+        //sq.set("defType","dismax");
        // sq.set("defType","complexphrase");
         //sq.set("defType","offsetphrase");
        // sq.set("defType","edismax");
         
         //默认的查询字段，一般默认指定。
-        sq.set("df", "searchText");
+        sq.set("df", "content1");
         //设置参数的属性，区分大小写
-        //sq.setParam("q.op", "AND");
+        sq.setParam("q.op", "AND");
         //设置查询字段的权重
-        sq.set("qf","addr^1 feature^0.1");
+        //sq.set("qf","addr^1 feature^0.1");
 
         // filter查询
         //sq.addFilterQuery("name:[jely jim]");
@@ -163,7 +163,7 @@ public class SolrMain {
             System.out.println("name:" + solrDocument.get("name"));
             System.out.println("age:" + solrDocument.get("age"));
             System.out.println("addr:" + solrDocument.get("addr"));
-            System.out.println("searchText:" + solrDocument.get("searchText"));
+            System.out.println("content1:" + solrDocument.get("content1"));
         }
         System.out.println("排序->"+id);
 

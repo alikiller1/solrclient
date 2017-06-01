@@ -164,4 +164,12 @@ public class GeneralTest {
 		System.out.println(Arrays.toString(s1));
 		System.out.println(Arrays.toString(s3));
 	}
+	@Test
+	public void test6(){
+		String[] str = new String[] { "a", "b" }; 
+		List<String> list = Arrays.asList(str);
+		str[0]="c";
+		list.add("e");
+		System.out.println(list.get(0));
+	}
 }
