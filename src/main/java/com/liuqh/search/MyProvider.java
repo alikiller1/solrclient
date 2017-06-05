@@ -34,27 +34,21 @@ public class MyProvider extends CustomScoreProvider {
     	LeafReader reader= this.context.reader();
     	Document  docment= reader.document(doc);
     	String content1=docment.get("content1");
-    	System.out.println("content1----->"+content1);
+    	String queryStr=params.get("queryStr");
     	
-    	float addScore=1;
-    	String q=params.get("q");
-    	String name=params.get("name");
-    	System.out.println("q===="+q);
-    	System.out.println("name===="+name);
-    	if(content1.equals(q)){
-    		addScore=4;
-    	}else if(content1.startsWith(q)){
-    		addScore=2;
+    	float score=1;
+    	if(content1.equals(queryStr)){
+    		score=4;
+    	}else{
+    		if(content1.startsWith(queryStr)){
+    			score=3;
+    		}else{
+    			score=2;
+    		}
     	}
-    	/*	
-         * 通过得分相乘放大分数
-         * 此处可以控制与原有得分结合的方式，加减乘除都可以
-         * **/
-
-    	log.info("前台参数：params内容:{} ",params);
-        log.info("查询一次：docid:{} subQueryScore:{} valSrcScore:{}",
-                doc, subQueryScore,valSrcScore);
-        return  subQueryScore*valSrcScore*addScore;
+        log.info("查询一次：docid:{} content1:{} queryStr:{}",
+                doc, content1,queryStr);
+        return  score;
     }
     public static void main(String[] args) {
     	String s="q=深圳你好&defType=myparser&df=content1&indent=on&echoParams=explicit&name=123&rows=10&wt=json&_";
