@@ -25,5 +25,6 @@ public class MyTokenizer extends CharTokenizer {
 		char c='|';
 		System.out.println(c==124);
 	}
+	
 
 }
