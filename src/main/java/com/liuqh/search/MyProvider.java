@@ -51,7 +51,8 @@ public class MyProvider extends CustomScoreProvider {
         return  score;
     }
     public static void main(String[] args) {
-    	String s="q=深圳你好&defType=myparser&df=content1&indent=on&echoParams=explicit&name=123&rows=10&wt=json&_";
+    	String s="深圳!拍拍!";
+    	System.out.println(s.startsWith("深圳!"));
 		
 	}
 }
