@@ -51,8 +51,17 @@
 			<artifactId>zkclient</artifactId>
 			<version>0.10</version>
 		</dependency>
-
-
+		<dependency>
+			<groupId>com.chenlb.mmseg4j</groupId>
+			<artifactId>mmseg4j-solr</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.chenlb.mmseg4j/mmseg4j-core -->
+		<dependency>
+			<groupId>com.chenlb.mmseg4j</groupId>
+			<artifactId>mmseg4j-core</artifactId>
+			<version>1.8.6</version>
+		</dependency>
 
 	</dependencies>
 

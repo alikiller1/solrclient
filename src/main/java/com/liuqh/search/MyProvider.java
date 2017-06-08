@@ -51,8 +51,8 @@ public class MyProvider extends CustomScoreProvider {
         return  score;
     }
     public static void main(String[] args) {
-    	String s="深圳!拍拍!";
-    	System.out.println(s.startsWith("深圳!"));
+    	String s="null";
+    	System.out.println("深圳!".equals(s));
 		
 	}
 }
