@@ -1,6 +1,7 @@
 package com.liuqh.search;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.apache.lucene.index.LeafReader;
 import org.apache.lucene.index.LeafReaderContext;
 import org.apache.lucene.queries.CustomScoreProvider;
 import org.apache.solr.common.params.SolrParams;
+import org.eclipse.jetty.util.UrlEncoded;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,6 +37,7 @@ public class MyProvider extends CustomScoreProvider {
     	Document  docment= reader.document(doc);
     	String content1=docment.get("content1");
     	String queryStr=params.get("queryStr");
+    	queryStr=URLDecoder.decode(queryStr, "UTF-8");
     	
     	float score=1;
     	if(content1.equals(queryStr)){
@@ -43,7 +46,7 @@ public class MyProvider extends CustomScoreProvider {
     		if(content1.startsWith(queryStr)){
     			score=3;
     		}else{
-    			score=2;
+    			score=0;
     		}
     	}
         log.info("查询一次：docid:{} content1:{} queryStr:{}",
