@@ -1,6 +1,7 @@
 package com.liuqh.search;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Iterator;
 import java.util.List;
@@ -37,8 +38,8 @@ public class MyProvider extends CustomScoreProvider {
     	Document  docment= reader.document(doc);
     	String content1=docment.get("content1");
     	String queryStr=params.get("queryStr");
-    	queryStr=URLDecoder.decode(queryStr, "UTF-8");
-    	
+    	queryStr=URLDecoder.decode(queryStr, "UFT-8");
+    	log.info("----------------------queryStr-------------"+queryStr);
     	float score=1;
     	if(content1.equals(queryStr)){
     		score=4;
@@ -53,9 +54,9 @@ public class MyProvider extends CustomScoreProvider {
                 doc, content1,queryStr);
         return  score;
     }
-    public static void main(String[] args) {
-    	String s="null";
-    	System.out.println("深圳!".equals(s));
+    public static void main(String[] args) throws UnsupportedEncodingException {
+    	String s="深圳+拍拍";
+    	System.out.println(URLDecoder.decode(s,"UFT-8"));
 		
 	}
 }
