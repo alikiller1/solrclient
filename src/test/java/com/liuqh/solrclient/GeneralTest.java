@@ -1,13 +1,13 @@
 package com.liuqh.solrclient;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.junit.Test;
@@ -199,5 +199,27 @@ public class GeneralTest {
 			start++;
 		}
 		System.out.println(map);
+	}
+	
+	@Test
+	public void test9(){
+		int a=2;
+		switch (a) {
+		case 1:
+		case 2:
+		case 3:
+			System.out.println(a);
+			break;
+
+		default:
+			System.out.println("default");
+			break;
+		}
+	}
+	
+	@Test
+	public void test8() throws UnsupportedEncodingException{
+		String s="http://localhost:8483/solr/core2/select?facet.field=content1&facet.query=facet.mincount=1&facet=on&indent=on&q=content1:%22%E4%B8%AD%E5%9B%BD%E6%B7%B1%E5%9C%B3%E6%8B%8D%E6%8B%8D%22&wt=json";
+		System.out.println(URLDecoder.decode(s,"utf8"));
 	}
 }

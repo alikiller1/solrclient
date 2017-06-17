@@ -1,6 +1,8 @@
 package com.liuqh.search;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import org.apache.lucene.index.LeafReader;
 import org.apache.lucene.index.LeafReaderContext;
 import org.apache.lucene.queries.CustomScoreProvider;
 import org.apache.solr.common.params.SolrParams;
+import org.eclipse.jetty.util.UrlEncoded;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +38,8 @@ public class MyProvider extends CustomScoreProvider {
     	Document  docment= reader.document(doc);
     	String content1=docment.get("content1");
     	String queryStr=params.get("queryStr");
-    	
+    	queryStr=URLDecoder.decode(queryStr, "UFT-8");
+    	log.info("----------------------queryStr-------------"+queryStr);
     	float score=1;
     	if(content1.equals(queryStr)){
     		score=4;
@@ -43,16 +47,16 @@ public class MyProvider extends CustomScoreProvider {
     		if(content1.startsWith(queryStr)){
     			score=3;
     		}else{
-    			score=2;
+    			score=0;
     		}
     	}
         log.info("查询一次：docid:{} content1:{} queryStr:{}",
                 doc, content1,queryStr);
         return  score;
     }
-    public static void main(String[] args) {
-    	String s="深圳!拍拍!";
-    	System.out.println(s.startsWith("深圳!"));
+    public static void main(String[] args) throws UnsupportedEncodingException {
+    	String s="深圳+拍拍";
+    	System.out.println(URLDecoder.decode(s,"UFT-8"));
 		
 	}
 }
