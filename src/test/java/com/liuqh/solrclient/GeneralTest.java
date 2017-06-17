@@ -179,8 +179,8 @@ public class GeneralTest {
 	@Test
 	public void test7(){
 		String[] wordLibrary={"中国","地图","美国","中国人"};
-		String source="我是中国人,我有一张中国人 的地图，你有没有美国的地图''\"\",‘’“”?!!！？？!!!!%*）%￥，。！KTV去符号标号！！当然,，。!!..**半角";
-		source=source.replaceAll("\\pP|\\s", "");
+		String source="我是中国人,我有一张中国人 的地图，你有没有美国的地图''\"\",‘’“”&%￥#@（）{}【】?!!！？？!!!!%*）%￥，。！KTV去符号标号！！当然,，。!!..**半角";
+		source=source.replaceAll("\\pP|\\pS|\\pZ", "");
 		System.out.println(source);
 		int length=4;
 		int start=0;
