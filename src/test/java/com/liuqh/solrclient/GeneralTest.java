@@ -1,5 +1,8 @@
 package com.liuqh.solrclient;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -221,5 +224,25 @@ public class GeneralTest {
 	public void test8() throws UnsupportedEncodingException{
 		String s="http://localhost:8483/solr/core2/select?facet.field=content1&facet.query=facet.mincount=1&facet=on&indent=on&q=content1:%22%E4%B8%AD%E5%9B%BD%E6%B7%B1%E5%9C%B3%E6%8B%8D%E6%8B%8D%22&wt=json";
 		System.out.println(URLDecoder.decode(s,"utf8"));
+	}
+	
+	@Test
+	public void test10() throws IOException{
+		RandomAccessFile file=new RandomAccessFile("d:/a.txt", "rw");
+		file.seek(0);
+	    char a1=(char) file.readByte();
+		System.out.println(a1);
+		//file.writeInt(1000);
+		file.seek(10);
+		int a=file.readInt();
+		System.out.println(a);
+		file.seek(11);
+		//file.writeChars("abc123");
+		char c=file.readChar();
+		System.out.println(c);
+		file.close();
+		
+		
+		
 	}
 }
