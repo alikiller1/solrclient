@@ -241,8 +241,24 @@ public class GeneralTest {
 		char c=file.readChar();
 		System.out.println(c);
 		file.close();
-		
-		
-		
+	}
+	
+	@Test
+	public void test11(){
+		long startTime=System.currentTimeMillis();
+		String s=null;
+		int count=0;
+		for(int i=0;i<=20000000;i++){
+			s="我们都是中国人中国人"+i;
+			count++;
+			if(s.startsWith("我们")){
+				
+			}
+			if(s.indexOf("都是")>-1){
+				
+			}
+		}
+		System.out.println("use time="+(System.currentTimeMillis()-startTime));
+		System.out.println("count="+count);
 	}
 }
