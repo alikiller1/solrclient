@@ -33,13 +33,13 @@ public class MyProvider extends CustomScoreProvider {
 
     @Override
     public float customScore(int doc, float subQueryScore, float valSrcScore) throws IOException {
-    	System.out.println(this.context.toString());
+    	long startTime=System.currentTimeMillis();
     	LeafReader reader= this.context.reader();
     	Document  docment= reader.document(doc);
     	String content1=docment.get("content1");
     	String queryStr=params.get("queryStr");
+    	log.info("get document use time="+(System.currentTimeMillis()-startTime));
     	queryStr=URLDecoder.decode(queryStr, "UFT-8");
-    	log.info("----------------------queryStr-------------"+queryStr);
     	float score=1;
     	if(content1.equals(queryStr)){
     		score=4;
@@ -52,6 +52,7 @@ public class MyProvider extends CustomScoreProvider {
     	}
         log.info("查询一次：docid:{} content1:{} queryStr:{}",
                 doc, content1,queryStr);
+        log.info("all time="+(System.currentTimeMillis()-startTime));
         return  score;
     }
     public static void main(String[] args) throws UnsupportedEncodingException {
