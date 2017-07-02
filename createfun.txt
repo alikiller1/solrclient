@@ -1,0 +1,18 @@
+DELIMITER $$
+
+USE `testdb`$$
+
+DROP FUNCTION IF EXISTS `f1`$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `f1`(total int) RETURNS int(11)
+BEGIN
+	declare num int;
+	set num = 1;
+	while num < total do
+	insert into student (`name`,`content`) values (concat('name',num),concat('我们都是中国人，你是来自哪里的？',num));	
+	set num = num +1;
+	end while;	
+	return 1;
+	END$$
+
+DELIMITER ;
