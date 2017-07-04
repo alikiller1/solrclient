@@ -107,7 +107,7 @@ public class SolrMain {
         SolrQuery sq = new SolrQuery();
 
         // q查询
-        sq.set("q", "addr:深圳 feature:矮");
+        sq.set("q", "addr:深圳 OR feature:矮");
         //sq.set("q", "南贷金融");
         
         //sq.set("q", "*:*");
@@ -120,9 +120,9 @@ public class SolrMain {
         //默认的查询字段，一般默认指定。
         //sq.set("df", "content1");
         //设置参数的属性，区分大小写
-        sq.setParam("q.op", "OR");
+       // sq.setParam("q.op", "OR");
         //设置查询字段的权重
-        sq.set("qf","addr^0.1 feature^10");
+        sq.set("qf","addr^10 feature^0.1");
 
         // filter查询
         //sq.addFilterQuery("name:[jely jim]");
