@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.LeafReader;
 import org.apache.lucene.index.LeafReaderContext;
+import org.apache.lucene.index.SortedDocValues;
 import org.apache.lucene.queries.CustomScoreProvider;
 import org.apache.solr.common.params.SolrParams;
 import org.eclipse.jetty.util.UrlEncoded;
@@ -67,6 +68,7 @@ public class MyProvider extends CustomScoreProvider {
         	return subQueryScore*valSrcScore;
     	}else{
     		LeafReader reader= this.context.reader();
+    		reader.getRefCount();
         	Document  docment= reader.document(doc);
         	String content1=docment.get("content1");
         	String name=docment.get("name");

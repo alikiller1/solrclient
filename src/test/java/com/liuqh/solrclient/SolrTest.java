@@ -1,10 +1,13 @@
 package com.liuqh.solrclient;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jetty.util.UrlEncoded;
 import org.junit.Test;
 
 public class SolrTest {
@@ -65,4 +68,11 @@ public class SolrTest {
 		ids.add("4");
 		SolrMain.deleteDocumentByIds(ids);
 	}
+	@Test
+	public void test1() throws UnsupportedEncodingException{
+		String url="http://localhost:8483/solr/core2/select?defType=dismax&indent=on&q=addr:深圳 OR feature:矮&qf=addr^0.1 feature^10";
+		String resp=HttpRequest.sendGet(url, null);
+		System.out.println("resp-->"+resp);
+	}
+		
 }
