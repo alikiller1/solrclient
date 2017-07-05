@@ -51,7 +51,6 @@ public class MySimilarity extends SimilarityBase {
 		System.out.println(Math.log(5));
 	}
 	
-	
 
 
 }

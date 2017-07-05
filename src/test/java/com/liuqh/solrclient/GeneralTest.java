@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -222,7 +223,7 @@ public class GeneralTest {
 	
 	@Test
 	public void test8() throws UnsupportedEncodingException{
-		String s="http://localhost:8483/solr/core2/select?facet.field=content1&facet.query=facet.mincount=1&facet=on&indent=on&q=content1:%22%E4%B8%AD%E5%9B%BD%E6%B7%B1%E5%9C%B3%E6%8B%8D%E6%8B%8D%22&wt=json";
+		String s="http://localhost:8483/solr/core2/select?_=1499170903149&defType=dismax&fl=id,score&indent=on&q=addr:%E6%B7%B1%E5%9C%B3++feature:%E7%9F%AE&q.op=OR&qf=addr%5E0.1+feature%5E10&wt=json";
 		System.out.println(URLDecoder.decode(s,"utf8"));
 	}
 	
@@ -260,5 +261,16 @@ public class GeneralTest {
 		}
 		System.out.println("use time="+(System.currentTimeMillis()-startTime));
 		System.out.println("count="+count);
+	}
+	@Test
+	public void test12() throws UnsupportedEncodingException{
+		String keyword="addr:深圳  feature:矮";
+		String qf="addr^10 feature^1";
+		String url="http://localhost:8483/solr/core2/select?_=1499170903149&defType=dismax&fl=id,score&indent=on&wt=json&q.op=OR";
+		url=url+"&q="+URLEncoder.encode(keyword,"UTF-8")+"&qf="+URLEncoder.encode(qf,"UTF-8");
+		String resp=HttpClientUtil.get(url);
+		//String resp=HttpRequest.sendGet(url, null);
+		
+		System.out.println("resp-->"+resp);
 	}
 }
