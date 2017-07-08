@@ -1,20 +1,4 @@
 package com.liuqh.search.offset;
-/*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,7 +11,6 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
-import org.apache.lucene.queryparser.complexPhrase.ComplexPhraseQueryParser;
 import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.BoostQuery;
@@ -66,7 +49,7 @@ import org.apache.lucene.search.spans.SpanTermQuery;
  * 
  */
 public class OffsetPhraseQueryParser extends QueryParser {
-  private ArrayList<OffsetPhraseQuery> complexPhrases = null;
+  private ArrayList<ComplexPhraseQuery> complexPhrases = null;
 
   private boolean isPass2ResolvingPhrases;
 
@@ -82,7 +65,7 @@ public class OffsetPhraseQueryParser extends QueryParser {
     this.inOrder = inOrder;
   }
 
-  private OffsetPhraseQuery currentPhraseQuery = null;
+  private ComplexPhraseQuery currentPhraseQuery = null;
 
   public OffsetPhraseQueryParser(String f, Analyzer a) {
     super(f, a);
@@ -90,7 +73,7 @@ public class OffsetPhraseQueryParser extends QueryParser {
 
   @Override
   protected Query getFieldQuery(String field, String queryText, int slop) {
-	  OffsetPhraseQuery cpq = new OffsetPhraseQuery(field, queryText, slop, inOrder);
+    ComplexPhraseQuery cpq = new ComplexPhraseQuery(field, queryText, slop, inOrder);
     complexPhrases.add(cpq); // add to list of phrases to be parsed once
     // we
     // are through with this pass
@@ -128,7 +111,7 @@ public class OffsetPhraseQueryParser extends QueryParser {
     // set of syntax restrictions (i.e. all fields must be same)
     isPass2ResolvingPhrases = true;
     try {
-      for (Iterator<OffsetPhraseQuery> iterator = complexPhrases.iterator(); iterator.hasNext();) {
+      for (Iterator<ComplexPhraseQuery> iterator = complexPhrases.iterator(); iterator.hasNext();) {
         currentPhraseQuery = iterator.next();
         // in each phrase, now parse the contents between quotes as a
         // separate parse operation
@@ -210,7 +193,7 @@ public class OffsetPhraseQueryParser extends QueryParser {
    * Used to handle the query content in between quotes and produced Span-based
    * interpretations of the clauses.
    */
-  static class OffsetPhraseQuery extends Query {
+  static class ComplexPhraseQuery extends Query {
 
     final String field;
 
@@ -222,7 +205,7 @@ public class OffsetPhraseQueryParser extends QueryParser {
 
     private final Query[] contents = new Query[1];
 
-    public OffsetPhraseQuery(String field, String phrasedQueryStringContents,
+    public ComplexPhraseQuery(String field, String phrasedQueryStringContents,
         int slopFactor, boolean inOrder) {
       this.field = Objects.requireNonNull(field);
       this.phrasedQueryStringContents = Objects.requireNonNull(phrasedQueryStringContents);
@@ -429,7 +412,7 @@ public class OffsetPhraseQueryParser extends QueryParser {
              equalsTo(getClass().cast(other));
     }
 
-    private boolean equalsTo(OffsetPhraseQuery other) {
+    private boolean equalsTo(ComplexPhraseQuery other) {
       return field.equals(other.field) &&
              phrasedQueryStringContents.equals(other.phrasedQueryStringContents) &&
              slopFactor == other.slopFactor &&
