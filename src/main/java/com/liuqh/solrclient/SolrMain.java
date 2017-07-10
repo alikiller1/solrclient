@@ -1,6 +1,6 @@
 package com.liuqh.solrclient;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -254,6 +254,55 @@ public class SolrMain {
     	System.out.println(s);
     }
     
+    public static void joinQuery() throws Exception{
+
+        HttpSolrClient solrClient = getSolrClient("/" + "core1");
+        SolrQuery sq = new SolrQuery();
+
+        // q查询
+        sq.set("q", "{!join from=id to=id fromIndex=core2}score:72");
+        // 分页 从第0条开始取，取一条
+        sq.setStart(0);
+        sq.setRows(10);
+
+        // 设置高亮
+        sq.setHighlight(true);
+        
+        // 设置高亮的字段
+        sq.addHighlightField("name");
+
+        // 设置高亮的样式
+        sq.setHighlightSimplePre("<font color='red'>");
+        sq.setHighlightSimplePost("</font>");
+
+        QueryResponse result = solrClient.query(sq);
+
+        // 这里可以从result获得查询数据(两种方式如下)
+
+        // 1.获取document数据
+        System.out.println("1.获取document数据-------------------------");
+        SolrDocumentList results = result.getResults();
+        // 获取查询的条数
+        System.out.println("一共查询到" + results.getNumFound() + "条记录");
+        String id="";
+        for (SolrDocument solrDocument : results) {
+        	id=id+solrDocument.get("id");
+            System.out.println("id:" + solrDocument.get("id"));
+            System.out.println("content5:" + solrDocument.get("content5"));
+        }
+        System.out.println("排序->"+id);
+
+        // 2.获取对象信息,需要传入对应对象的类class
+        System.out.println("2.获取对象信息,需要传入对应对象的类class-----------");
+        List<Person> persons = result.getBeans(Person.class);
+        System.out.println("一共查询到" + persons.size() + "条记录");
+        for (Person person : persons) {
+            System.out.println(person);
+        }
+        commitAndCloseSolr(solrClient);
+    
+    }
+    
     /**
      * 主函数入口
      * 
@@ -261,7 +310,16 @@ public class SolrMain {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-    	fullDataImport();
+    	//joinQuery();
+    	 joinQueryByPost();
+    }	
+    
+    public static void joinQueryByPost() throws IOException{
+    	Map<String,Object> params=new HashMap<String,Object>();
+    	params.put("q", "{!join from=id to=id fromIndex=core2}course:数学");
+    	String resp=HttpClientUtil.post("http://localhost:8483/solr/core1/select", params);
+    	System.out.println("resp->"+resp);
     }
+    
 
 }
