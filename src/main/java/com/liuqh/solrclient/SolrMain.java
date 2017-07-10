@@ -317,6 +317,7 @@ public class SolrMain {
     public static void joinQueryByPost() throws IOException{
     	Map<String,Object> params=new HashMap<String,Object>();
     	params.put("q", "{!join from=id to=id fromIndex=core2}course:数学");
+    	params.put("fl", "content1");
     	String resp=HttpClientUtil.post("http://localhost:8483/solr/core1/select", params);
     	System.out.println("resp->"+resp);
     }

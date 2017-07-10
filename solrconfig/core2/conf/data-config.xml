@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>    
+<dataConfig>  
+ <dataSource type="JdbcDataSource" driver="com.mysql.jdbc.Driver"    
+   url="jdbc:mysql://localhost:3306/testdb"    
+   user="root"    
+   password="123"/>  
+  <document name="student">  
+	  
+	    <entity name="full-import"  
+		query="SELECT sid,course,score  FROM score a">   
+		  <field column="sid" name="id" /> 		
+      </entity>
+	 
+ </document>   
+</dataConfig>  

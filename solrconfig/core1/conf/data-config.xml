@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>    
+<dataConfig>  
+ <dataSource type="JdbcDataSource" driver="com.mysql.jdbc.Driver"    
+   url="jdbc:mysql://localhost:3306/testdb"    
+   user="root"    
+   password="123"/>  
+  <document name="student">  
+	  
+	    <entity name="full-import"  
+		query="SELECT id,NAME,age,addr,course,score,feature,content,grade,DATE_FORMAT(updatetime, '%Y%m%d') as updatetime  FROM student a LEFT JOIN score b   ON a.id=b.sid WHERE (b.course='语文' OR b.course IS NULL)">   
+          <field column="content" name="content1" />  	  
+		  <field column="content" name="content2" /> 
+		  <field column="content" name="content3" /> 
+		  <field column="content" name="content4" /> 
+		  <field column="updatetime" name="time" />	
+		  <field column="addr" name="addr2" /> 
+	      <field column="addr" name="addr" /> 		  
+      </entity>
+	   
+	  <entity name="delta-Import"   
+         query="SELECT id,NAME,age,addr,feature,content,grade,DATE_FORMAT(updatetime, '%Y%m%d') as updatetime  from student where updatetime > '${dataimporter.last_index_time}' or '${dataimporter.request.clean}'='true' ">  	  
+		  <field column="content" name="content1" />  	  
+		  <field column="content" name="content2" /> 
+		  <field column="content" name="content3" /> 
+		  <field column="content" name="content4" /> 
+		  <field column="updatetime" name="time" />	
+	      <field column="addr" name="addr2" /> 
+	      <field column="addr" name="addr" /> 			  
+     </entity>   
+	 
+ </document>   
+</dataConfig>  
