@@ -260,7 +260,7 @@ public class SolrMain {
         SolrQuery sq = new SolrQuery();
 
         // q查询
-        sq.set("q", "{!join from=id to=id fromIndex=core2}score:72");
+        sq.set("q", "{!join from=sid to=id fromIndex=core2}(score:72 AND sid:1)");
         // 分页 从第0条开始取，取一条
         sq.setStart(0);
         sq.setRows(10);
@@ -288,7 +288,7 @@ public class SolrMain {
         for (SolrDocument solrDocument : results) {
         	id=id+solrDocument.get("id");
             System.out.println("id:" + solrDocument.get("id"));
-            System.out.println("content5:" + solrDocument.get("content5"));
+            System.out.println("content:" + solrDocument.get("content5"));
         }
         System.out.println("排序->"+id);
 
@@ -310,13 +310,13 @@ public class SolrMain {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-    	//joinQuery();
-    	 joinQueryByPost();
+    	joinQuery();
+    	// joinQueryByPost();
     }	
     
     public static void joinQueryByPost() throws IOException{
     	Map<String,Object> params=new HashMap<String,Object>();
-    	params.put("q", "{!join from=sid to=id fromIndex=core2}(sid:3 AND score:72)");
+    	params.put("q", "{!join from=sid to=id fromIndex=core2}(score:72 AND id:1)");
     	params.put("fl", "content1");
     	String resp=HttpClientUtil.post("http://localhost:8483/solr/core1/select", params);
     	System.out.println("resp->"+resp);
