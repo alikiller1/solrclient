@@ -1,6 +1,7 @@
 package com.liuqh.solrclient.service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import org.apache.solr.client.solrj.SolrQuery;
@@ -57,10 +58,10 @@ public class QueryService {
 		solrClient.close();
 	}
 	
-	public static void queryByNewHttpRequeryEveryTime(String queryWord){
+	public static void queryByNewHttpRequeryEveryTime(String queryWord) throws UnsupportedEncodingException{
 
 		String baseUrl = "http://localhost:8483/solr/core2/select?df=searchText&indent=ture&wt=json&q=";
-		String queryUrl = baseUrl + URLEncoder.encode(queryWord);
+		String queryUrl = baseUrl + URLEncoder.encode(queryWord,"UTF-8");
 		String resp=HttpRequest.sendGet(queryUrl, null);
 		//System.out.println("resp->"+resp);
 	}

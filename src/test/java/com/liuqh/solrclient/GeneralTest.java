@@ -1,6 +1,5 @@
 package com.liuqh.solrclient;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
@@ -8,13 +7,14 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.junit.Test;
+
 
 public class GeneralTest {
 	@Test
@@ -182,25 +182,37 @@ public class GeneralTest {
 	}
 	@Test
 	public void test7(){
-		String[] wordLibrary={"中国","地图","美国","中国人"};
-		String source="我是中国人,我有一张中国人 的地图，你有没有美国的地图''\"\",‘’“”&%￥#@（）{}【】?!!！？？!!!!%*）%￥，。！KTV去符号标号！！当然,，。!!..**半角";
+		String[] wordLibrary={"我","是","人","有","一张","的","你","有没有","没有","中国","地图","美国","中国人"};
+		String source="我是中国人,我有一张中国人 的地图，你有没有美国的地图''\"\",‘’“”&%￥#@（）{}【】?!!！？？!!!!%*）%￥";
 		source=source.replaceAll("\\pP|\\pS|\\pZ", "");
 		System.out.println(source);
-		int length=4;
+		int length=3;
 		int start=0;
-		int index=1;
-		Map<String,String> map=new HashMap<String,String>();
-		while(start<source.length()-1){
-			for(int i=1;i<=length&&start+i<source.length();i++){
+		int index=0;
+		Map<String,String> map=new LinkedHashMap<String,String>();
+		boolean findFlag=false;
+		while(start<source.length()){
+			for(int i=1;i<=length&&start+i<=source.length();i++){
+				findFlag=false;
 				String item=source.substring(start, start+i);
 				for(String word:wordLibrary ){
 					if(word.equals(item)){
 						map.put(String.valueOf(index), item);
 						index++;
+						start=start+i;
+						findFlag=true;
+						break;
 					}
 				}
+				if(findFlag){
+					break;
+				}
 			}
-			start++;
+			if(!findFlag){
+				start++;
+			}
+			
+			
 		}
 		System.out.println(map);
 	}
