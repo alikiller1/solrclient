@@ -275,14 +275,14 @@ public class GeneralTest {
 		System.out.println("count="+count);
 	}
 	@Test
-	public void test12() throws UnsupportedEncodingException{
+	public void test12() throws Exception{
 		String keyword="addr:深圳  feature:矮";
 		String qf="addr^10 feature^1";
 		String url="http://localhost:8483/solr/core2/select?_=1499170903149&defType=dismax&fl=id,score&indent=on&wt=json&q.op=OR";
 		url=url+"&q="+URLEncoder.encode(keyword,"UTF-8")+"&qf="+URLEncoder.encode(qf,"UTF-8");
 		String resp=HttpClientUtil.get(url);
 		//String resp=HttpRequest.sendGet(url, null);
-		
+		Thread.sleep(1000000);
 		System.out.println("resp-->"+resp);
 	}
 }
